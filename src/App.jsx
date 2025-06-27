@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Mail,
@@ -59,17 +59,44 @@ function App() {
   }, [])
 
   const skills = [
-    { name: 'Flutter', icon: <Smartphone className="w-6 h-6" />, category: 'Mobile' },
-    { name: 'Dart', icon: <Code className="w-6 h-6" />, category: 'Language' },
-    { name: 'Firebase', icon: <Database className="w-6 h-6" />, category: 'Backend' },
-    { name: 'Node.js', icon: <Globe className="w-6 h-6" />, category: 'Backend' },
-    { name: 'Express.js', icon: <Code className="w-6 h-6" />, category: 'Backend' },
-    { name: 'JavaScript', icon: <Code className="w-6 h-6" />, category: 'Language' },
-    { name: 'MongoDB', icon: <Database className="w-6 h-6" />, category: 'Database' },
-    { name: 'Supabase', icon: <Database className="w-6 h-6" />, category: 'Database' },
-    { name: 'REST API', icon: <Globe className="w-6 h-6" />, category: 'API' },
-    { name: 'Git', icon: <Github className="w-6 h-6" />, category: 'Version Control' },
-    { name: 'Android', icon: <Smartphone className="w-6 h-6" />, category: 'Platform' },
+    // Mobile Development
+    { name: 'Flutter', icon: <Smartphone className="w-6 h-6" />, category: 'Mobile Development', level: 95 },
+    { name: 'Dart', icon: <Code className="w-6 h-6" />, category: 'Mobile Development', level: 90 },
+    { name: 'Flutter Flow', icon: <Smartphone className="w-6 h-6" />, category: 'Mobile Development', level: 85 },
+    { name: 'Animation', icon: <Code className="w-6 h-6" />, category: 'Mobile Development', level: 80 },
+    
+    // State Management
+    { name: 'Provider', icon: <Database className="w-6 h-6" />, category: 'State Management', level: 90 },
+    { name: 'GetX', icon: <Database className="w-6 h-6" />, category: 'State Management', level: 85 },
+    { name: 'Reactive Programming', icon: <Code className="w-6 h-6" />, category: 'State Management', level: 80 },
+    
+    // Backend & APIs
+    { name: 'Node.js', icon: <Globe className="w-6 h-6" />, category: 'Backend & APIs', level: 85 },
+    { name: 'JavaScript', icon: <Code className="w-6 h-6" />, category: 'Backend & APIs', level: 80 },
+    { name: 'REST API', icon: <Globe className="w-6 h-6" />, category: 'Backend & APIs', level: 90 },
+    { name: 'AI API Integration', icon: <Globe className="w-6 h-6" />, category: 'Backend & APIs', level: 75 },
+    
+    // Database & Storage
+    { name: 'MongoDB', icon: <Database className="w-6 h-6" />, category: 'Database & Storage', level: 85 },
+    { name: 'Firebase', icon: <Database className="w-6 h-6" />, category: 'Database & Storage', level: 90 },
+    { name: 'Supabase', icon: <Database className="w-6 h-6" />, category: 'Database & Storage', level: 85 },
+    { name: 'Local Storage', icon: <Database className="w-6 h-6" />, category: 'Database & Storage', level: 90 },
+    
+    // Real-time Features
+    { name: 'Socket.io', icon: <Globe className="w-6 h-6" />, category: 'Real-time Features', level: 85 },
+    { name: 'Live Chat', icon: <MessageCircle className="w-6 h-6" />, category: 'Real-time Features', level: 90 },
+    { name: 'Offline Chat', icon: <MessageCircle className="w-6 h-6" />, category: 'Real-time Features', level: 80 },
+    { name: 'Chat Emoji', icon: <MessageCircle className="w-6 h-6" />, category: 'Real-time Features', level: 85 },
+    { name: 'Edit Message', icon: <MessageCircle className="w-6 h-6" />, category: 'Real-time Features', level: 80 },
+    
+    // Web Development
+    { name: 'React.js', icon: <Code className="w-6 h-6" />, category: 'Web Development', level: 70 },
+    
+    // Integrations & Services
+    { name: 'Payment Gateway', icon: <Globe className="w-6 h-6" />, category: 'Integrations & Services', level: 80 },
+    { name: 'Push Notifications', icon: <Smartphone className="w-6 h-6" />, category: 'Integrations & Services', level: 85 },
+    { name: 'Git', icon: <Github className="w-6 h-6" />, category: 'Version Control', level: 85 },
+    { name: 'Android', icon: <Smartphone className="w-6 h-6" />, category: 'Platform', level: 90 },
   ]
 
   const projects = [
@@ -77,57 +104,81 @@ function App() {
       title: 'BBSAtom',
       description: 'Comprehensive inventory management app for seamless order processing, from buying to picking and delivering.',
       tech: ['Flutter', 'REST API', 'Local Storage', 'Barcode Scanning'],
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop'
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop',
+      playStoreUrl: 'https://play.google.com/store/apps/details?id=com.bbsapp.bbsatom&hl=en_IN'
     },
     {
       title: 'BBSEmploy',
       description: 'Employee self-service app with AppLock, biometric authentication, and personal information management.',
       tech: ['Flutter', 'Biometric Auth', 'AppLock', 'Payroll Integration'],
-      image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&h=300&fit=crop'
+      image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&h=300&fit=crop',
+      playStoreUrl: 'https://play.google.com/store/apps/details?id=com.bbsapp.bbsemploy&hl=en_IN'
     },
     {
       title: 'Transectra',
       description: 'Premier diamond marketplace for buying and selling diamonds with advanced search and media features.',
       tech: ['Flutter', 'E-commerce', 'Media Handling', 'Search Engine'],
-      image: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=300&fit=crop'
+      image: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=400&h=300&fit=crop',
+      playStoreUrl: 'https://play.google.com/store/apps/details?id=com.transectra.app&hl=en_IN'
     },
     {
       title: 'My Care Bubble',
       description: 'Advanced social care platform with secure live chats, media sharing, and hospital module integration.',
       tech: ['Flutter', 'Socket.io', 'Real-time Chat', 'Media Sharing'],
-      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=300&fit=crop'
+      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=300&fit=crop',
+      playStoreUrl: 'https://play.google.com/store/apps/details?id=com.mycarebubble.app&hl=en_IN'
     },
     {
       title: 'Fitness App',
       description: 'Comprehensive workout tracker with social login, guided routines, and leaderboard functionality.',
       tech: ['Flutter', 'Supabase', 'Social Login', 'Progress Tracking'],
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop'
+      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',
+      playStoreUrl: null
     },
     {
       title: 'BNN App',
       description: 'Social media and e-commerce platform combining posts, reels, stories with marketplace functionality.',
       tech: ['Flutter', 'Supabase', 'Social Media', 'E-commerce'],
-      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop'
+      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=300&fit=crop',
+      playStoreUrl: null
     },
     {
       title: 'Solo Luxury',
       description: 'Premium e-commerce app for luxury fashion with custom backend API package for multiple apps.',
       tech: ['Flutter', 'Custom API', 'E-commerce', 'Multi-app Support'],
-      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop'
+      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop',
+      playStoreUrl: null
     },
     {
       title: 'Road Assistance',
       description: 'Reliable roadside assistance app connecting users with towing services and admin chat support.',
       tech: ['Flutter', 'Supabase', 'Location Services', 'Chat System'],
-      image: 'https://images.unsplash.com/photo-1549924231-f129b911e442?w=400&h=300&fit=crop'
+      image: 'https://images.unsplash.com/photo-1549924231-f129b911e442?w=400&h=300&fit=crop',
+      playStoreUrl: null
     },
     {
       title: 'The Victory Capital',
       description: 'Wealth building mutual fund platform with expert strategies and diverse investment opportunities.',
       tech: ['Flutter', 'Financial API', 'Investment Tracking', 'Analytics'],
-      image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop'
+      image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop',
+      playStoreUrl: null
     }
   ]
+
+  // Floating SVG shapes for hero/footer
+  const FloatingShapes = () => (
+    <>
+      <motion.svg initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 0.2, scale: 1, y: [0, 20, 0] }} transition={{ duration: 8, repeat: Infinity }} style={{ position: 'absolute', top: 40, left: 60, zIndex: 0 }} width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="40" fill="#f093fb" /></motion.svg>
+      <motion.svg initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 0.15, scale: 1, y: [0, -30, 0] }} transition={{ duration: 10, repeat: Infinity }} style={{ position: 'absolute', bottom: 60, right: 80, zIndex: 0 }} width="60" height="60" viewBox="0 0 60 60"><rect width="60" height="60" rx="20" fill="#667eea" /></motion.svg>
+    </>
+  );
+
+  // Animated Skill Progress Bar
+  const SkillBar = ({ percent }) => (
+    <motion.div className="skill-bar-bg" initial={{ width: 0 }} animate={{ width: percent + '%' }} transition={{ duration: 1.2 }}>
+      <span className="skill-bar-fill" style={{ width: percent + '%' }}></span>
+    </motion.div>
+  );
 
   return (
     <div className="app">
@@ -375,7 +426,7 @@ function App() {
 
           <div className="projects-grid">
             {projects.map((project, index) => (
-              <motion.div
+              <motion.div 
                 key={project.title}
                 className="project-card"
                 initial={{ opacity: 0, y: 50 }}
@@ -385,9 +436,28 @@ function App() {
                 whileHover={{ y: -10 }}
               >
                 <div className="project-image">
-                  <img src={project.image} alt={project.title} />
+                  <img 
+                    src={project.image} 
+                    alt={project.title} 
+                    onError={(e) => {
+                      e.target.src = 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop';
+                    }}
+                  />
                   <div className="project-overlay">
-                    <button className="btn btn-primary">View Details</button>
+                    <div className="project-overlay-buttons">
+                      <button className="btn btn-primary">View Details</button>
+                      {project.playStoreUrl && (
+                        <a 
+                          href={project.playStoreUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="btn btn-secondary"
+                        >
+                          <Smartphone className="w-4 h-4" />
+                          Play Store
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
                 <div className="project-content">
@@ -398,6 +468,14 @@ function App() {
                       <span key={techIndex} className="tech-tag">{tech}</span>
                     ))}
                   </div>
+                  {project.playStoreUrl && (
+                    <div className="project-availability">
+                      <span className="availability-badge">
+                        <Smartphone className="w-4 h-4" />
+                        Available on Play Store
+                      </span>
+                    </div>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -420,8 +498,8 @@ function App() {
           </motion.div>
 
           <div className="skills-container">
-            {['Mobile', 'Backend', 'Language', 'Database', 'API', 'Version Control', 'Platform'].map((category) => (
-              <motion.div
+            {['Mobile Development', 'State Management', 'Backend & APIs', 'Database & Storage', 'Real-time Features', 'Web Development', 'Integrations & Services', 'Version Control', 'Platform'].map((category) => (
+              <motion.div 
                 key={category}
                 className="skill-category"
                 initial={{ opacity: 0, y: 30 }}
@@ -434,7 +512,7 @@ function App() {
                   {skills
                     .filter(skill => skill.category === category)
                     .map((skill, index) => (
-                      <motion.div
+                      <motion.div 
                         key={skill.name}
                         className="skill-item"
                         initial={{ opacity: 0, scale: 0.8 }}
@@ -443,8 +521,22 @@ function App() {
                         viewport={{ once: true }}
                         whileHover={{ scale: 1.05 }}
                       >
-                        {skill.icon}
-                        <span>{skill.name}</span>
+                        <div className="skill-header">
+                          {skill.icon}
+                          <span className="skill-name">{skill.name}</span>
+                          <span className="skill-level">{skill.level}%</span>
+                        </div>
+                        <div className="skill-progress">
+                          <div className="skill-progress-bar">
+                            <motion.div 
+                              className="skill-progress-fill"
+                              initial={{ width: 0 }}
+                              whileInView={{ width: `${skill.level}%` }}
+                              transition={{ duration: 1, delay: index * 0.1 }}
+                              viewport={{ once: true }}
+                            ></motion.div>
+                          </div>
+                        </div>
                       </motion.div>
                     ))}
                 </div>
