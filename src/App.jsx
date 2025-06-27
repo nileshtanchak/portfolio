@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import emailjs from 'emailjs-com'
 import {
   Mail,
   Phone,
@@ -25,6 +26,65 @@ import profileImage from './assets/niel.jpeg'
 function App() {
   const [activeSection, setActiveSection] = useState('home')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState(null) // 'success' or 'error'
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init("YOUR_EMAILJS_PUBLIC_KEY") // You'll need to replace this with your actual EmailJS public key
+  }, [])
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus(null)
+
+    try {
+      const result = await emailjs.send(
+        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_name: 'Tanchak Nilesh Ramjibhai'
+        },
+        'YOUR_EMAILJS_PUBLIC_KEY' // Replace with your EmailJS public key
+      )
+
+      if (result.status === 200) {
+        setSubmitStatus('success')
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        })
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (error) {
+      console.error('Email sending failed:', error)
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId)
@@ -659,26 +719,55 @@ function App() {
               transition={{ duration: 0.6, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <input type="text" placeholder="Your Name" required />
+                  <input type="text" placeholder="Your Name" name="name" value={formData.name} onChange={handleInputChange} required />
                 </div>
                 <div className="form-group">
-                  <input type="email" placeholder="Your Email" required />
+                  <input type="email" placeholder="Your Email" name="email" value={formData.email} onChange={handleInputChange} required />
                 </div>
                 <div className="form-group">
-                  <input type="text" placeholder="Subject" required />
+                  <input type="text" placeholder="Subject" name="subject" value={formData.subject} onChange={handleInputChange} required />
                 </div>
                 <div className="form-group">
-                  <textarea placeholder="Your Message" rows="5" required></textarea>
+                  <textarea placeholder="Your Message" rows="5" name="message" value={formData.message} onChange={handleInputChange} required></textarea>
                 </div>
-                <motion.button
-                  type="submit"
+                
+                {submitStatus === 'success' && (
+                  <motion.div 
+                    className="form-message success"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    ✅ Message sent successfully! I'll get back to you soon.
+                  </motion.div>
+                )}
+                
+                {submitStatus === 'error' && (
+                  <motion.div 
+                    className="form-message error"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    ❌ Failed to send message. Please try again or email me directly.
+                  </motion.div>
+                )}
+                
+                <motion.button 
+                  type="submit" 
                   className="btn btn-primary"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  disabled={isSubmitting}
                 >
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <div className="loading-spinner"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    'Send Message'
+                  )}
                 </motion.button>
               </form>
             </motion.div>
