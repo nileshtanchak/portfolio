@@ -236,11 +236,8 @@ body {
 }
 
 .highlight {
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+  color: white;
+  font-weight: 700;
 }
 
 .hero-subtitle {
@@ -747,6 +744,16 @@ body {
   font-size: 0.875rem;
   font-weight: 500;
   box-shadow: var(--shadow-sm);
+}
+
+.npm-badge {
+  background: linear-gradient(135deg, #cb3837 0%, #a91e1d 100%);
+  animation: pulse 2s infinite;
+}
+
+.npm-badge:hover {
+  background: linear-gradient(135deg, #a91e1d 0%, #8b1514 100%);
+  transform: scale(1.05);
 }
 
 .project-content {

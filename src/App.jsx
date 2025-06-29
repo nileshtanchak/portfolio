@@ -161,6 +161,16 @@ function App() {
 
   const projects = [
     {
+      title: 'flutter_init',
+      description: 'A powerful CLI tool to instantly scaffold modern Flutter apps with custom architecture and GetX state management. Features custom folder structure, auto-installation of essential dependencies, API handler classes, and offline support.',
+      tech: ['Node.js', 'CLI Tools', 'Flutter', 'GetX', 'Architecture', 'NPM Package'],
+      image: 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=300&fit=crop',
+      npmUrl: 'https://www.npmjs.com/package/flutter_init',
+      githubUrl: null,
+      playStoreUrl: null,
+      isNpmPackage: true
+    },
+    {
       title: 'BBSAtom',
       description: 'Comprehensive inventory management app for seamless order processing, from buying to picking and delivering.',
       tech: ['Flutter', 'REST API', 'Local Storage', 'Barcode Scanning'],
@@ -209,20 +219,20 @@ function App() {
       image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop',
       playStoreUrl: null
     },
-    {
-      title: 'Road Assistance',
-      description: 'Reliable roadside assistance app connecting users with towing services and admin chat support.',
-      tech: ['Flutter', 'Supabase', 'Location Services', 'Chat System'],
-      image: 'https://images.unsplash.com/photo-1549924231-f129b911e442?w=400&h=300&fit=crop',
-      playStoreUrl: null
-    },
-    {
-      title: 'The Victory Capital',
-      description: 'Wealth building mutual fund platform with expert strategies and diverse investment opportunities.',
-      tech: ['Flutter', 'Financial API', 'Investment Tracking', 'Analytics'],
-      image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop',
-      playStoreUrl: null
-    }
+    // {
+    //   title: 'Road Assistance',
+    //   description: 'Reliable roadside assistance app connecting users with towing services and admin chat support.',
+    //   tech: ['Flutter', 'Supabase', 'Location Services', 'Chat System'],
+    //   image: 'https://images.unsplash.com/photo-1549924231-f129b911e442?w=400&h=300&fit=crop',
+    //   playStoreUrl: null
+    // },
+    // {
+    //   title: 'The Victory Capital',
+    //   description: 'Wealth building mutual fund platform with expert strategies and diverse investment opportunities.',
+    //   tech: ['Flutter', 'Financial API', 'Investment Tracking', 'Analytics'],
+    //   image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop',
+    //   playStoreUrl: null
+    // }
   ]
 
   // Floating SVG shapes for hero/footer
@@ -298,7 +308,7 @@ function App() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="hero-title">
-              Hi, I'm <span className="highlight">Tanchak Nilesh Ramjibhai</span>
+              Hi, I'm Nilesh Tanchak
             </h1>
             <h2 className="hero-subtitle">Flutter Developer</h2>
             <p className="hero-description">
@@ -506,6 +516,17 @@ function App() {
                   <div className="project-overlay">
                     <div className="project-overlay-buttons">
                       <button className="btn btn-primary">View Details</button>
+                      {project.isNpmPackage && project.npmUrl && (
+                        <a 
+                          href={project.npmUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="btn btn-secondary"
+                        >
+                          <Code className="w-4 h-4" />
+                          NPM Package
+                        </a>
+                      )}
                       {project.playStoreUrl && (
                         <a 
                           href={project.playStoreUrl} 
@@ -533,6 +554,14 @@ function App() {
                       <span className="availability-badge">
                         <Smartphone className="w-4 h-4" />
                         Available on Play Store
+                      </span>
+                    </div>
+                  )}
+                  {project.isNpmPackage && project.npmUrl && (
+                    <div className="project-availability">
+                      <span className="availability-badge npm-badge">
+                        <Code className="w-4 h-4" />
+                        Available on NPM
                       </span>
                     </div>
                   )}
