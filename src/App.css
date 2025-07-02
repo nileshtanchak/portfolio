@@ -99,7 +99,9 @@ body {
   gap: 2rem;
   align-items: center;
   box-sizing: border-box;
-  max-width: 100vw;
+  /* max-width: 100vw; */
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .nav-link {
@@ -117,6 +119,8 @@ body {
   text-decoration: none;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  justify-content: flex-start;
 }
 
 .nav-link::before {
@@ -1194,6 +1198,11 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+    width: 100%;
+    overflow-x: hidden;
   }
   .nav-container {
     height: 60px;
@@ -1223,8 +1232,10 @@ body {
     visibility: hidden;
     transition: all 0.3s ease;
     z-index: 1050;
-    width: 100vw;
+    /* width: 100vw; */
     gap: 1.5rem;
+    width: 100%;
+    overflow-x: hidden;
   }
   .nav-menu.active {
     transform: translateY(0);
