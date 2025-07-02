@@ -703,14 +703,8 @@ function App() {
             <p>Let's work together</p>
           </motion.div>
 
-          <div className="contact-content">
-            <motion.div
-              className="contact-info"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
+          <div className="contact-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem' }}>
+            <div style={{ width: '100%', maxWidth: 400 }}>
               <div className="contact-item">
                 <Mail className="w-6 h-6" />
                 <div>
@@ -739,67 +733,14 @@ function App() {
                   <p>Connect with me</p>
                 </div>
               </div>
-            </motion.div>
-
-            <motion.div
-              className="contact-form"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
+            </div>
+            <a 
+              href="mailto:nileshtanchak007@gmail.com" 
+              className="btn btn-primary" 
+              style={{ display: 'block', textAlign: 'center', fontWeight: 600, fontSize: '1.1rem', padding: '1rem 2.5rem', borderRadius: '1rem', boxShadow: '0 4px 20px rgba(240,147,251,0.15)' }}
             >
-              <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <input type="text" placeholder="Your Name" name="name" value={formData.name} onChange={handleInputChange} required />
-                </div>
-                <div className="form-group">
-                  <input type="email" placeholder="Your Email" name="email" value={formData.email} onChange={handleInputChange} required />
-                </div>
-                <div className="form-group">
-                  <input type="text" placeholder="Subject" name="subject" value={formData.subject} onChange={handleInputChange} required />
-                </div>
-                <div className="form-group">
-                  <textarea placeholder="Your Message" rows="5" name="message" value={formData.message} onChange={handleInputChange} required></textarea>
-                </div>
-                
-                {submitStatus === 'success' && (
-                  <motion.div 
-                    className="form-message success"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                  >
-                    ✅ Message sent successfully! I'll get back to you soon.
-                  </motion.div>
-                )}
-                
-                {submitStatus === 'error' && (
-                  <motion.div 
-                    className="form-message error"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                  >
-                    ❌ Failed to send message. Please try again or email me directly.
-                  </motion.div>
-                )}
-                
-                <motion.button 
-                  type="submit" 
-                  className="btn btn-primary"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="loading-spinner"></div>
-                      Sending...
-                    </>
-                  ) : (
-                    'Send Message'
-                  )}
-                </motion.button>
-              </form>
-            </motion.div>
+              Send Mail
+            </a>
           </div>
         </div>
       </section>
