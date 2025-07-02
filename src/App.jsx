@@ -275,37 +275,36 @@ function App() {
             <span className="logo-text">Nilesh</span>
           </motion.div>
 
-          <div className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-            {[
-              { id: 'home', label: 'Home', icon: <Home className="w-4 h-4" /> },
-              { id: 'about', label: 'About', icon: <User className="w-4 h-4" /> },
-              { id: 'experience', label: 'Experience', icon: <Briefcase className="w-4 h-4" /> },
-              { id: 'projects', label: 'Projects', icon: <Code className="w-4 h-4" /> },
-              { id: 'skills', label: 'Skills', icon: <Award className="w-4 h-4" /> },
-              { id: 'education', label: 'Education', icon: <BookOpen className="w-4 h-4" /> },
-              { id: 'contact', label: 'Contact', icon: <MessageCircle className="w-4 h-4" /> }
-            ].map((item) => (
-              <motion.button
-                key={item.id}
-                className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
-                onClick={() => scrollToSection(item.id)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </motion.button>
-            ))}
-          </div>
-
           <div
-            className={`hamburger ${isMenuOpen ? 'active' : ''}`}
+            className={`hamburger${isMenuOpen ? ' active' : ''}`}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <span></span>
             <span></span>
             <span></span>
           </div>
+        </div>
+        <div className={`nav-menu${isMenuOpen ? ' active' : ''}`}>
+          {[
+            { id: 'home', label: 'Home', icon: <Home className="w-4 h-4" /> },
+            { id: 'about', label: 'About', icon: <User className="w-4 h-4" /> },
+            { id: 'experience', label: 'Experience', icon: <Briefcase className="w-4 h-4" /> },
+            { id: 'projects', label: 'Projects', icon: <Code className="w-4 h-4" /> },
+            { id: 'skills', label: 'Skills', icon: <Award className="w-4 h-4" /> },
+            { id: 'education', label: 'Education', icon: <BookOpen className="w-4 h-4" /> },
+            { id: 'contact', label: 'Contact', icon: <MessageCircle className="w-4 h-4" /> }
+          ].map((item) => (
+            <motion.button
+              key={item.id}
+              className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
+              onClick={() => scrollToSection(item.id)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {item.icon}
+              <span>{item.label}</span>
+            </motion.button>
+          ))}
         </div>
       </nav>
 
