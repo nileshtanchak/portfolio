@@ -312,7 +312,7 @@ function App() {
             </h1>
             <h2 className="hero-subtitle">Flutter Developer</h2>
             <p className="hero-description">
-              Dedicated Flutter application developer with 2 years of experience in developing
+              Dedicated Flutter application developer with 2+ years of experience in developing
               high-quality mobile applications for both Android and iOS platforms.
             </p>
             <div className="hero-buttons">
@@ -388,7 +388,7 @@ function App() {
               viewport={{ once: true }}
             >
               <p>
-                I am a dedicated Flutter application developer with 2 years of experience in developing
+                I am a dedicated Flutter application developer with 2+ years of experience in developing
                 high-quality mobile applications for both Android and iOS platforms. I also have experience
                 in Node.js and JavaScript for Backend Development.
               </p>
