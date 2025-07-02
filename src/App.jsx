@@ -118,6 +118,17 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflowX = 'hidden';
+    } else {
+      document.body.style.overflowX = '';
+    }
+    return () => {
+      document.body.style.overflowX = '';
+    };
+  }, [isMenuOpen]);
+
   const skills = [
     // Mobile Development
     { name: 'Flutter', icon: <Smartphone className="w-6 h-6" />, category: 'Mobile Development', level: 95 },
